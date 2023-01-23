@@ -1,0 +1,40 @@
+\documentclass[a4paper, landscape]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[margin=1.5cm]{geometry}
+\usepackage{csvsimple}
+\usepackage{mathtools}
+\usepackage{siunitx}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage[shortcuts]{extdash}
+\usepackage{tikz}
+
+\begin{document}
+\csvloop{
+  file=output.csv,
+  head to column names,
+  separator=semicolon,
+  respect all,
+  % filter={\value{csvrow}<5},
+  longtable={p{2cm}*{4}{l}*{3}{p{2cm}}},
+  table head={\toprule \multirow{6}{2cm}{\textbf{Pebble}}&\multicolumn{3}{l}{\textbf{Point of origin}}&\textbf{Material}&\multirow{6}{2cm}{\textbf{Reeb\=/graph}}&\multirow{6}{2cm}{\textbf{Quasi\=/dual of the Morse\==Smale graph}}&\multirow{6}{2cm}{\textbf{Master graph}}\\*
+    &\centering\textbf{Weight}&\textbf{Volume}&\textbf{Surface area}&\textbf{Isoperimetric ratio}\\*
+    &\(\mathbf{a}\)&\(\mathbf{b}\)&\(\mathbf{c}\)\\*
+    &\(\mathbf{y^1}\)&\(\mathbf{y^2}\)&\textbf{Zingg class}\\*
+    &\multicolumn{2}{l}{\textbf{Measured}}&\multicolumn{2}{l}{\textbf{Computed}}\\*
+    &\textbf{S}&\textbf{U}&\textbf{S}&\textbf{U}\\\midrule\endhead},
+  command={\multirow{4}*{\IfFileExists{images/\id.jpg}{\includegraphics[width=2cm]{images/\id}}{\tikz{\fill[gray] (-1,-1) rectangle (1,1);\draw (0,0.2) node {not} (0,-0.2) node {available};}}}&\multicolumn{3}{l}{\origin}&\material&\multirow{5}{2cm}{\IfFileExists{graphs/reeb/\id.pdf}{\includegraphics{graphs/reeb/\id.pdf}}{\tikz{\fill[gray] (-1,-1) rectangle (1,1);}}}&\multirow{5}{2cm}{\IfFileExists{graphs/dual/\id.pdf}{\includegraphics{graphs/dual/\id.pdf}}{\tikz{\fill[gray] (-1,-1) rectangle (1,1);}}}&\multirow{5}{2cm}{\IfFileExists{graphs/master/\id.pdf}{\includegraphics{graphs/master/\id.pdf}}{\tikz{\fill[gray] (-1,-1) rectangle (1,1);}}}\\*
+    &\SI{\weight}{\gram}&\SI{\volume}{\mm^3}&\SI{\area}{\mm^2}&\isoperimetric\\*
+    &\SI{\a}{\mm}&\SI{\b}{\mm}&\SI{\c}{\mm}\\*
+    &\yone&\ytwo&\zingg\\*
+    &\ms&\mu&\cs&\cu\\
+    \texttt{\id}},
+}
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

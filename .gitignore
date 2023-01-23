@@ -1,0 +1,9 @@
+# ignore Emacs temporary files
+*~
+\#*\#
+.\#*
+# ignore generated files
+/graphs
+output.csv
+catalog.*
+!catalog.tex
